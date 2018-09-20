@@ -26,8 +26,7 @@ public class GildedRoseTest {
 	// Syntax Item("Name",SellIn,Quality)
 
 
-//   Item("Conjured Mana Cake", 3, 6));
-
+//   Test normal item -1/day result 0 for both
 	@Test
 	public void testUpdateEndOfDay_SellIn_Quality_11_11() {
 		// Arrange
@@ -47,6 +46,28 @@ public class GildedRoseTest {
 		assertEquals(11, days);
 		assertEquals(0, itemNormal.getQuality());
 		assertEquals(0, itemNormal.getSellIn());
+	}
+	
+//  Test normal item -1/day  then aftter 0 -2/day result 0 for both
+	@Test
+	public void testUpdateEndOfDay_SellIn_Quality_ReduceQuality() {
+		// Arrange
+		GildedRose store = new GildedRose();
+		store.addItem(new Item("Normal Item", 5, 11) );
+		int days=0;
+		// Act
+		do {
+			store.updateEndOfDay();
+			days++;
+		}
+		while( days < 8);
+		
+		// Assert
+		List<Item> items = store.getItems();
+		Item itemNormal = items.get(0);
+		assertEquals(8, days);
+		assertEquals("Quality fails",0, itemNormal.getQuality());
+		assertEquals("SellDay fails",0, itemNormal.getSellIn());
 	}
 // -2x
 	@Test
