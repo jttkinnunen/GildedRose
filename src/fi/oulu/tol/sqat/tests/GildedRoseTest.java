@@ -48,6 +48,27 @@ public class GildedRoseTest {
 		assertEquals(0, itemNormal.getQuality());
 		assertEquals(0, itemNormal.getSellIn());
 	}
+// -2x
+	@Test
+	public void testUpdateEndOfDay_SellIn_Quality_1_12() {
+		// Arrange
+		GildedRose store = new GildedRose();
+		store.addItem(new Item("Normal Item", 1, 12) );
+		int days=0;
+		// Act
+		do {
+			store.updateEndOfDay();
+			days++;
+		}
+		while( days < 5);
+		
+		// Assert
+		List<Item> items = store.getItems();
+		Item itemNormal = items.get(0);
+		assertEquals(5, days);
+		assertEquals(3, itemNormal.getQuality());
+		assertEquals(0, itemNormal.getSellIn());
+	}
 //  Item("Aged Brie", 2, 0));+3/day SellIn<=5
 	@Test
 	public void testUpdateEndOfDa_AgedBrie_2_0y() {
